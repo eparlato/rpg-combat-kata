@@ -6,7 +6,7 @@ import static org.hamcrest.core.Is.is;
 
 public class CharacterTest {
 
-    public static final int DAMAGE_EXCEEDING_HEALTH = Character.INITIAL_HEALTH + 1;
+    public static final int DAMAGE_EXCEEDING_HEALTH = Character.MAX_HEALTH + 1;
     private Character character;
 
     @Before
@@ -16,7 +16,7 @@ public class CharacterTest {
 
     @Test
     public void has_health_at_1000_when_created() {
-        assertThat(character.health(), is(Character.INITIAL_HEALTH));
+        assertThat(character.health(), is(Character.MAX_HEALTH));
     }
 
     @Test
@@ -56,14 +56,23 @@ public class CharacterTest {
 
         assertThat(character.health(), is(previousHealth+1));
     }
+
+    @Test
+    public void healing_cannot_raise_health_above_max_health() {
+        character.receiveDamage(1);
+
+        character.heal(2);
+
+        assertThat(character.health(), is(Character.MAX_HEALTH));
+    }
 }
 
 class Character {
-    public static final int INITIAL_HEALTH = 1000;
+    public static final int MAX_HEALTH = 1000;
     private int health;
 
     public Character() {
-        this.health = INITIAL_HEALTH;
+        this.health = MAX_HEALTH;
     }
 
     public int health() {
@@ -84,5 +93,10 @@ class Character {
 
     public void heal(int healing) {
         health += healing;
+
+        if (health > MAX_HEALTH) {
+            health = MAX_HEALTH;
+        }
+
     }
 }
