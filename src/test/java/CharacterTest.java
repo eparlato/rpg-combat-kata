@@ -46,6 +46,16 @@ public class CharacterTest {
     public void character_is_alive_when_created() {
         assertThat(character.isAlive(), is(true));
     }
+
+    @Test
+    public void character_can_be_healed() {
+        character.receiveDamage(2);
+        int previousHealth = character.health();
+
+        character.heal(1);
+
+        assertThat(character.health(), is(previousHealth+1));
+    }
 }
 
 class Character {
@@ -70,5 +80,9 @@ class Character {
 
     public boolean isAlive() {
         return health > 0;
+    }
+
+    public void heal(int healing) {
+        health += healing;
     }
 }
