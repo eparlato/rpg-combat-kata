@@ -41,6 +41,11 @@ public class CharacterTest {
 
         assertThat(character.isAlive(), is(false));
     }
+
+    @Test
+    public void character_is_alive_when_created() {
+        assertThat(character.isAlive(), is(true));
+    }
 }
 
 class Character {
