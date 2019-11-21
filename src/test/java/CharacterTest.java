@@ -34,6 +34,13 @@ public class CharacterTest {
 
         assertThat(character.health(), is(0));
     }
+
+    @Test
+    public void character_dies_when_health_becomes_zero() {
+        character.receiveDamage(DAMAGE_EXCEEDING_HEALTH);
+
+        assertThat(character.isAlive(), is(false));
+    }
 }
 
 class Character {
@@ -54,5 +61,9 @@ class Character {
         if (health < 0) {
             health = 0;
         }
+    }
+
+    public boolean isAlive() {
+        return health > 0;
     }
 }
