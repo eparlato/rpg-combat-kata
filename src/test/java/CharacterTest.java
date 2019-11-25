@@ -20,24 +20,24 @@ public class CharacterTest {
     }
 
     @Test
-    public void loses_health_when_receiving_damage() {
+    public void a_character_can_deal_damage_to_another_character() {
         int currentHealth = character.health();
 
-        character.receiveDamage(1);
+        attack(character, 1);
 
         assertThat(character.health(), is(currentHealth-1));
     }
 
     @Test
     public void when_damage_received_exceeds_current_health_health_becomes_zero() {
-        character.receiveDamage(DAMAGE_EXCEEDING_HEALTH);
+        attack(character, DAMAGE_EXCEEDING_HEALTH);
 
         assertThat(character.health(), is(0));
     }
 
     @Test
     public void character_dies_when_health_becomes_zero() {
-        character.receiveDamage(DAMAGE_EXCEEDING_HEALTH);
+        attack(character, DAMAGE_EXCEEDING_HEALTH);
 
         assertThat(character.isAlive(), is(false));
     }
@@ -49,7 +49,7 @@ public class CharacterTest {
 
     @Test
     public void character_can_be_healed() {
-        character.receiveDamage(2);
+        attack(character, 2);
         int previousHealth = character.health();
 
         character.heal(1);
@@ -59,11 +59,15 @@ public class CharacterTest {
 
     @Test
     public void healing_cannot_raise_health_above_max_health() {
-        character.receiveDamage(1);
+        attack(character, 1);
 
         character.heal(2);
 
         assertThat(character.health(), is(Character.MAX_HEALTH));
+    }
+
+    private void attack(Character target, int damageDealt) {
+        new Character().attack(target, damageDealt);
     }
 }
 
@@ -79,12 +83,8 @@ class Character {
         return this.health;
     }
 
-    public void receiveDamage(int damage) {
-        health -= damage;
-
-        if (health < 0) {
-            health = 0;
-        }
+    public void attack(Character target, int damage) {
+        target.receiveDamage(damage);
     }
 
     public boolean isAlive() {
@@ -98,5 +98,13 @@ class Character {
             health = MAX_HEALTH;
         }
 
+    }
+
+    private void receiveDamage(int damage) {
+        health -= damage;
+
+        if (health < 0) {
+            health = 0;
+        }
     }
 }
