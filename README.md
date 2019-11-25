@@ -26,3 +26,13 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 1. A Character can Heal a Character.
     - Dead characters cannot be healed
     - Healing cannot raise health above 1000
+        
+## Iteration Two ##
+
+1. A Character cannot Deal Damage to itself.
+
+1. A Character can only Heal itself.
+
+1. When dealing damage:
+    - If the target is 5 or more Levels above the attacker, Damage is reduced by 50%
+    - If the target is 5 or more levels below the attacker, Damage is increased by 50%
