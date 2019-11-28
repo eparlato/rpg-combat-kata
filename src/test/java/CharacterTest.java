@@ -99,7 +99,7 @@ class Character {
     }
 
     public void attack(Character target, int damage) {
-        target.receiveDamage(this, damage);
+        target.receiveAttackFrom(this, damage);
     }
 
     public boolean isAlive() {
@@ -114,15 +114,18 @@ class Character {
         }
     }
 
-    private void receiveDamage(Character attacker, int damage) {
-        if ((this.level - attacker.level) >= 5) {
-            health -= damage / 2;
-        } else {
-            health -= damage;
-        }
+    private void receiveAttackFrom(Character attacker, int damageEffort) {
+        health -= computeDealtDamage(attacker, damageEffort);
 
         if (health < 0) {
             health = 0;
         }
+    }
+
+    private int computeDealtDamage(Character attacker, int damage) {
+        if ((level - attacker.level) >= 5) {
+            return damage / 2;
+        }
+        return damage;
     }
 }
