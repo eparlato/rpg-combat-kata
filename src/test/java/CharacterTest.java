@@ -66,6 +66,15 @@ public class CharacterTest {
         assertThat(character.health(), is(Character.MAX_HEALTH));
     }
 
+    @Test
+    public void damage_is_reduced_by_50_percent_when_target_level_is_at_least_five_levels_above_attacker() {
+        Character character = new Character(6);
+
+        attack(character, 2);
+
+        assertThat(character.health(), is(Character.MAX_HEALTH - 1));
+    }
+
     private void attack(Character target, int damageDealt) {
         new Character().attack(target, damageDealt);
     }
@@ -74,8 +83,14 @@ public class CharacterTest {
 class Character {
     public static final int MAX_HEALTH = 1000;
     private int health;
+    private int level;
 
     public Character() {
+        this(1);
+    }
+
+    public Character(int level) {
+        this.level = level;
         this.health = MAX_HEALTH;
     }
 
@@ -84,7 +99,7 @@ class Character {
     }
 
     public void attack(Character target, int damage) {
-        target.receiveDamage(damage);
+        target.receiveDamage(this, damage);
     }
 
     public boolean isAlive() {
@@ -97,11 +112,14 @@ class Character {
         if (health > MAX_HEALTH) {
             health = MAX_HEALTH;
         }
-
     }
 
-    private void receiveDamage(int damage) {
-        health -= damage;
+    private void receiveDamage(Character attacker, int damage) {
+        if ((this.level - attacker.level) >= 5) {
+            health -= damage / 2;
+        } else {
+            health -= damage;
+        }
 
         if (health < 0) {
             health = 0;
