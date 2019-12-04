@@ -68,11 +68,13 @@ public class CharacterTest {
 
     @Test
     public void damage_is_reduced_by_50_percent_when_target_level_is_at_least_five_levels_above_attacker() {
-        Character character = new Character(6);
+        int attackerLevel = 1;
+        Character target = new Character(attackerLevel + Character.DAMAGE_REDUCTION_THRESHOLD);
 
-        attack(character, 2);
+        Character attacker = new Character(attackerLevel);
+        attacker.attack(target, 2);
 
-        assertThat(character.health(), is(Character.MAX_HEALTH - 1));
+        assertThat(target.health(), is(Character.MAX_HEALTH - 1));
     }
 
     private void attack(Character target, int damageDealt) {
@@ -82,6 +84,7 @@ public class CharacterTest {
 
 class Character {
     public static final int MAX_HEALTH = 1000;
+    public static final int DAMAGE_REDUCTION_THRESHOLD = 5;
     private int health;
     private int level;
 
@@ -123,7 +126,7 @@ class Character {
     }
 
     private int computeDealtDamage(Character attacker, int damage) {
-        if ((level - attacker.level) >= 5) {
+        if ((level - attacker.level) >= DAMAGE_REDUCTION_THRESHOLD) {
             return damage / 2;
         }
         return damage;
