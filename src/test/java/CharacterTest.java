@@ -126,9 +126,17 @@ class Character {
     }
 
     private int computeDealtDamage(Character attacker, int damage) {
-        if ((level - attacker.level) >= DAMAGE_REDUCTION_THRESHOLD) {
-            return damage / 2;
+        if (shouldReduceReceivedDamageFrom(attacker)) {
+            return halfOf(damage);
         }
         return damage;
+    }
+
+    private int halfOf(int damage) {
+        return damage / 2;
+    }
+
+    private boolean shouldReduceReceivedDamageFrom(Character attacker) {
+        return (level - attacker.level) >= DAMAGE_REDUCTION_THRESHOLD;
     }
 }
