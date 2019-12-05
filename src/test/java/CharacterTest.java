@@ -25,7 +25,7 @@ public class CharacterTest {
 
         attack(character, 1);
 
-        assertThat(character.health(), is(currentHealth-1));
+        assertThat(character.health(), is(currentHealth - 1));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class CharacterTest {
 
         character.heal(1);
 
-        assertThat(character.health(), is(previousHealth+1));
+        assertThat(character.health(), is(previousHealth + 1));
     }
 
     @Test
@@ -74,7 +74,19 @@ public class CharacterTest {
         Character attacker = new Character(attackerLevel);
         attacker.attack(target, 2);
 
-        assertThat(target.health(), is(Character.MAX_HEALTH - 1));
+        assertThat(target.health(), is(Character.MAX_HEALTH - 1)); //TODO: 1 numero magico?
+    }
+
+    //TODO test: se faccio danno 1 viene ridotto a 0?
+
+    @Test
+    public void damage_is_increased_by_50_percent_when_attacker_level_is_at_least_five_levels_above_target() {
+        Character target = new Character(1);
+
+        Character attacker = new Character(1 + 5); //TODO: 5 numero magico?
+        attacker.attack(target, 2);
+
+        assertThat(target.health(), is(Character.MAX_HEALTH - 3)); //TODO: 3 numero magico?
     }
 
     private void attack(Character target, int damageDealt) {
@@ -85,6 +97,7 @@ public class CharacterTest {
 class Character {
     public static final int MAX_HEALTH = 1000;
     public static final int DAMAGE_REDUCTION_THRESHOLD = 5;
+    public static final int DAMAGE_AMPLIFICATION_THRESHOLD = 5;
     private int health;
     private int level;
 
@@ -129,11 +142,18 @@ class Character {
         if (shouldReduceReceivedDamageFrom(attacker)) {
             return halfOf(damage);
         }
+        if (shouldIncreaseReceivedDamageFrom(attacker)) {
+            return damage + halfOf(damage);
+        }
         return damage;
     }
 
     private int halfOf(int damage) {
         return damage / 2;
+    }
+
+    private boolean shouldIncreaseReceivedDamageFrom(Character attacker) {
+        return (attacker.level - level) >= DAMAGE_AMPLIFICATION_THRESHOLD;
     }
 
     private boolean shouldReduceReceivedDamageFrom(Character attacker) {
