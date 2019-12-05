@@ -68,30 +68,40 @@ public class CharacterTest {
 
     @Test
     public void damage_is_reduced_by_50_percent_when_target_level_is_at_least_five_levels_above_attacker() {
-        int attackerLevel = 1;
+        Character attacker = new Character(attackerLevel = 1);
         Character target = new Character(attackerLevel + Character.DAMAGE_REDUCTION_THRESHOLD);
 
-        Character attacker = new Character(attackerLevel);
-        attacker.attack(target, 2);
+        attacker.attack(target, damage = 2);
 
-        assertThat(target.health(), is(Character.MAX_HEALTH - 1)); //TODO: 1 numero magico?
+        assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfReductionOf(damage)));
+    }
+
+    private int fiftyPercentOfReductionOf(int damage) {
+        return (int) (damage * 0.5);
     }
 
     //TODO test: se faccio danno 1 viene ridotto a 0?
 
     @Test
     public void damage_is_increased_by_50_percent_when_attacker_level_is_at_least_five_levels_above_target() {
-        Character target = new Character(1);
+        Character target = new Character(targetLevel = 1);
 
-        Character attacker = new Character(1 + 5); //TODO: 5 numero magico?
-        attacker.attack(target, 2);
+        Character attacker = new Character(targetLevel + Character.DAMAGE_AMPLIFICATION_THRESHOLD);
+        attacker.attack(target, damage = 2);
 
-        assertThat(target.health(), is(Character.MAX_HEALTH - 3)); //TODO: 3 numero magico?
+        assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfAmplificationOf(damage)));
+    }
+    private int fiftyPercentOfAmplificationOf(int damage) {
+        return (int) (damage * 1.5);
     }
 
     private void attack(Character target, int damageDealt) {
         new Character().attack(target, damageDealt);
     }
+
+    int attackerLevel;
+    int damage;
+    int targetLevel;
 }
 
 class Character {
