@@ -76,11 +76,17 @@ public class CharacterTest {
         assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfReductionOf(damage)));
     }
 
-    private int fiftyPercentOfReductionOf(int damage) {
-        return (int) (damage * 0.5);
-    }
+    @Test
+    public void reduced_by_50_percent_damage_is_rounded_down_when_damage_is_an_odd_value() {
+        Character attacker = new Character(attackerLevel = 1);
+        Character target = new Character(attackerLevel + Character.DAMAGE_REDUCTION_THRESHOLD);
 
-    //TODO test: se faccio danno 1 viene ridotto a 0?
+        attacker.attack(target, damage = 3);
+
+        int damageReceivedByTarget = 1;
+
+        assertThat(target.health(), is(Character.MAX_HEALTH - damageReceivedByTarget));
+    }
 
     @Test
     public void damage_is_increased_by_50_percent_when_attacker_level_is_at_least_five_levels_above_target() {
@@ -91,6 +97,11 @@ public class CharacterTest {
 
         assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfAmplificationOf(damage)));
     }
+
+    private int fiftyPercentOfReductionOf(int damage) {
+        return (int) (damage * 0.5);
+    }
+
     private int fiftyPercentOfAmplificationOf(int damage) {
         return (int) (damage * 1.5);
     }
