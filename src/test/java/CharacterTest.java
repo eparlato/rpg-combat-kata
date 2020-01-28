@@ -5,8 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class CharacterTest {
-
-    public static final int DAMAGE_EXCEEDING_HEALTH = Character.MAX_HEALTH + 1;
+    private static final int DAMAGE_EXCEEDING_HEALTH = Character.MAX_HEALTH + 1;
     private Character character;
 
     @Before
@@ -110,9 +109,9 @@ public class CharacterTest {
         new Character().attack(target, damageDealt);
     }
 
-    int attackerLevel;
-    int damage;
-    int targetLevel;
+    private int attackerLevel;
+    private int damage;
+    private int targetLevel;
 }
 
 class Character {
