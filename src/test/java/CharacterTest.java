@@ -116,6 +116,16 @@ public class CharacterTest {
         assertThat(rangedFighter.maxRange(), is(20));
     }
 
+    @Test
+    public void a_character_can_not_deal_damage_to_a_target_if_target_has_higher_range() {
+        RangedFighter rangedFighter = new RangedFighter();
+        Character meleeFighter = new MeleeFighter();
+
+        meleeFighter.attack(rangedFighter, 1);
+
+        assertThat(rangedFighter.health(), is(Character.MAX_HEALTH));
+    }
+
     private int fiftyPercentOfReductionOf(int damage) {
         return (int) (damage * 0.5);
     }
