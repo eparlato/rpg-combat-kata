@@ -97,6 +97,11 @@ public class CharacterTest {
         assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfAmplificationOf(damage)));
     }
 
+    @Test
+    public void character_has_an_attack_max_range() {
+        assertThat(character.maxRange(), is(1));
+    }
+
     private int fiftyPercentOfReductionOf(int damage) {
         return (int) (damage * 0.5);
     }
@@ -120,6 +125,7 @@ class Character {
     public static final int DAMAGE_AMPLIFICATION_THRESHOLD = 5;
     private int health;
     private int level;
+    private int range = 1;
 
     public Character() {
         this(1);
@@ -148,6 +154,10 @@ class Character {
         if (health > MAX_HEALTH) {
             health = MAX_HEALTH;
         }
+    }
+
+    public int maxRange() {
+        return range;
     }
 
     private void receiveAttackFrom(Character attacker, int damageEffort) {
