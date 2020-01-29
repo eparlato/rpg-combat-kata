@@ -102,6 +102,13 @@ public class CharacterTest {
         assertThat(character.maxRange(), is(1));
     }
 
+    @Test
+    public void a_melee_fighter_has_an_attack_range_of_2() {
+        Character meleeFighter = new MeleeFighter();
+
+        assertThat(meleeFighter.maxRange(), is(2));
+    }
+
     private int fiftyPercentOfReductionOf(int damage) {
         return (int) (damage * 0.5);
     }
