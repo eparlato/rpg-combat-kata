@@ -4,7 +4,6 @@ class Character {
     public static final int DAMAGE_AMPLIFICATION_THRESHOLD = 5;
     private int health;
     private int level;
-    private int range = 1;
 
     public Character() {
         this(1);
@@ -36,7 +35,7 @@ class Character {
     }
 
     public int maxRange() {
-        return range;
+        return 1;
     }
 
     private void receiveAttackFrom(Character attacker, int damageEffort) {
