@@ -46,3 +46,22 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 1. *Ranged* fighters have a range of 20 meters.
 
 1. Characters must be in range to deal damage to a target.
+
+## Retrospective ##
+
+- Are you keeping up with the requirements? Has any iteration been a big challenge?
+- Do you feel good about your design? Is it scalable and easily adapted to new requirements?
+- Is everything tested? Are you confident in your code?
+
+## Iteration Four ##
+
+1. Characters may belong to one or more Factions.
+    - Newly created Characters belong to no Faction.
+
+1. A Character may Join or Leave one or more Factions.
+
+1. Players belonging to the same Faction are considered Allies.
+
+1. Allies cannot Deal Damage to one another.
+
+1. Allies can Heal one another.
