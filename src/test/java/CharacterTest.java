@@ -103,20 +103,6 @@ public class CharacterTest {
     }
 
     @Test
-    public void a_melee_fighter_has_an_attack_range_of_2() {
-        Character meleeFighter = new MeleeFighter();
-
-        assertThat(meleeFighter.maxRange(), is(2));
-    }
-
-    @Test
-    public void a_ranged_fighter_has_an_attack_max_range_of_20() {
-        Character rangedFighter = new RangedFighter();
-
-        assertThat(rangedFighter.maxRange(), is(20));
-    }
-
-    @Test
     public void a_character_can_not_deal_damage_to_a_target_if_target_has_higher_range() {
         RangedFighter rangedFighter = new RangedFighter();
         Character meleeFighter = new MeleeFighter();
