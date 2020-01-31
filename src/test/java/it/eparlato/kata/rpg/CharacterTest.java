@@ -124,6 +124,16 @@ public class CharacterTest {
     }
 
     @Test
+    public void character_can_leave_a_faction() {
+        character.join(Faction.DEVELOPERS);
+        character.join(Faction.SYSOPS);
+
+        character.leave(Faction.DEVELOPERS);
+
+        assertThat(character.factionsJoined(), is(Arrays.asList(Faction.SYSOPS)));
+    }
+
+    @Test
     public void a_character_can_not_deal_damage_to_a_target_if_target_has_higher_range() {
         RangedFighter rangedFighter = new RangedFighter();
         Character meleeFighter = new MeleeFighter();
