@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -115,6 +116,11 @@ public class CharacterTest {
         character.join(Faction.SYSOPS);
 
         assertThat(character.factionsJoined(), is(factions));
+    }
+
+    @Test
+    public void newly_create_character_does_not_belong_to_any_faction() {
+        assertThat(character.factionsJoined(), is(Collections.emptyList()));
     }
 
     @Test
