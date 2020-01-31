@@ -107,8 +107,18 @@ public class CharacterTest {
     }
 
     @Test
+    public void a_character_can_not_deal_damage_to_a_target_if_target_has_higher_range() {
+        RangedFighter rangedFighter = new RangedFighter();
+        Character meleeFighter = new MeleeFighter();
+
+        meleeFighter.attack(rangedFighter, 1);
+
+        assertThat(rangedFighter.health(), is(Character.MAX_HEALTH));
+    }
+
+    @Test
     public void character_can_join_factions() {
-        Set<Faction> factions = new HashSet(Arrays.asList(Faction.DEVELOPERS, Faction.SYSOPS));
+        Set<Faction> factions = aSetOf(Faction.DEVELOPERS, Faction.SYSOPS);
 
         character.join(Faction.DEVELOPERS);
         character.join(Faction.SYSOPS);
@@ -128,7 +138,7 @@ public class CharacterTest {
 
         character.leave(Faction.DEVELOPERS);
 
-        assertThat(character.factionsJoined(), is(new HashSet<>(Arrays.asList(Faction.SYSOPS))));
+        assertThat(character.factionsJoined(), is(aSetOf(Faction.SYSOPS)));
     }
 
     @Test
@@ -137,17 +147,11 @@ public class CharacterTest {
         character.join(Faction.SYSOPS);
         character.join(Faction.DEVELOPERS);
 
-        assertThat(character.factionsJoined(), is(new HashSet<>(Arrays.asList(Faction.SYSOPS, Faction.DEVELOPERS))));
+        assertThat(character.factionsJoined(), is(aSetOf(Faction.SYSOPS, Faction.DEVELOPERS)));
     }
 
-    @Test
-    public void a_character_can_not_deal_damage_to_a_target_if_target_has_higher_range() {
-        RangedFighter rangedFighter = new RangedFighter();
-        Character meleeFighter = new MeleeFighter();
-
-        meleeFighter.attack(rangedFighter, 1);
-
-        assertThat(rangedFighter.health(), is(Character.MAX_HEALTH));
+    private HashSet<Faction> aSetOf(Faction... factions) {
+        return new HashSet<>(Arrays.asList(factions));
     }
 
     private int fiftyPercentOfReductionOf(int damage) {
