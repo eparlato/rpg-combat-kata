@@ -3,9 +3,7 @@ package it.eparlato.kata.rpg;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -110,7 +108,7 @@ public class CharacterTest {
 
     @Test
     public void character_can_join_factions() {
-        List<Faction> factions = Arrays.asList(Faction.DEVELOPERS, Faction.SYSOPS);
+        Set<Faction> factions = new HashSet(Arrays.asList(Faction.DEVELOPERS, Faction.SYSOPS));
 
         character.join(Faction.DEVELOPERS);
         character.join(Faction.SYSOPS);
@@ -120,7 +118,7 @@ public class CharacterTest {
 
     @Test
     public void newly_create_character_does_not_belong_to_any_faction() {
-        assertThat(character.factionsJoined(), is(Collections.emptyList()));
+        assertThat(character.factionsJoined(), is(Collections.emptySet()));
     }
 
     @Test
@@ -130,7 +128,16 @@ public class CharacterTest {
 
         character.leave(Faction.DEVELOPERS);
 
-        assertThat(character.factionsJoined(), is(Arrays.asList(Faction.SYSOPS)));
+        assertThat(character.factionsJoined(), is(new HashSet<>(Arrays.asList(Faction.SYSOPS))));
+    }
+
+    @Test
+    public void character_can_not_join_the_same_faction_twice() {
+        character.join(Faction.DEVELOPERS);
+        character.join(Faction.SYSOPS);
+        character.join(Faction.DEVELOPERS);
+
+        assertThat(character.factionsJoined(), is(new HashSet<>(Arrays.asList(Faction.SYSOPS, Faction.DEVELOPERS))));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package it.eparlato.kata.rpg;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Character {
     public static final int MAX_HEALTH = 1000;
@@ -9,7 +8,7 @@ class Character {
     public static final int DAMAGE_AMPLIFICATION_THRESHOLD = 5;
     private int health;
     private int level;
-    private List<Faction> factionsJoined = new ArrayList<>();
+    private Set<Faction> factionsJoined = new HashSet<>();
 
     public Character() {
         this(1);
@@ -78,7 +77,7 @@ class Character {
         return (level - attacker.level) >= DAMAGE_REDUCTION_THRESHOLD;
     }
 
-    public List<Faction> factionsJoined() {
+    public Set<Faction> factionsJoined() {
         return factionsJoined;
     }
 
