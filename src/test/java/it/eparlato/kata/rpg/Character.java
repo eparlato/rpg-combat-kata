@@ -1,3 +1,5 @@
+package it.eparlato.kata.rpg;
+
 import java.util.ArrayList;
 import java.util.List;
 

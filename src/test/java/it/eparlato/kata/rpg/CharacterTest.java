@@ -1,3 +1,5 @@
+package it.eparlato.kata.rpg;
+
 import org.junit.Before;
 import org.junit.Test;
 

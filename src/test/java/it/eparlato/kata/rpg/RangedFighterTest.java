@@ -1,3 +1,5 @@
+package it.eparlato.kata.rpg;
+
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
