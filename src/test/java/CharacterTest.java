@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -100,6 +103,16 @@ public class CharacterTest {
     @Test
     public void character_has_an_attack_max_range() {
         assertThat(character.maxRange(), is(1));
+    }
+
+    @Test
+    public void character_can_join_factions() {
+        List<Faction> factions = Arrays.asList(Faction.DEVELOPERS, Faction.SYSOPS);
+
+        character.join(Faction.DEVELOPERS);
+        character.join(Faction.SYSOPS);
+
+        assertThat(character.factionsJoined(), is(factions));
     }
 
     @Test

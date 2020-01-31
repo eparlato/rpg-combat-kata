@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class Character {
     public static final int MAX_HEALTH = 1000;
     public static final int DAMAGE_REDUCTION_THRESHOLD = 5;
     public static final int DAMAGE_AMPLIFICATION_THRESHOLD = 5;
     private int health;
     private int level;
+    private List<Faction> factionsJoined = new ArrayList<>();
 
     public Character() {
         this(1);
@@ -70,5 +74,13 @@ class Character {
 
     private boolean shouldReduceReceivedDamageFrom(Character attacker) {
         return (level - attacker.level) >= DAMAGE_REDUCTION_THRESHOLD;
+    }
+
+    public List<Faction> factionsJoined() {
+        return factionsJoined;
+    }
+
+    public void join(Faction faction) {
+        factionsJoined.add(faction);
     }
 }
