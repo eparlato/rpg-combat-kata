@@ -24,6 +24,10 @@ class Character {
     }
 
     public void attack(Character target, int damage) {
+        if (target.isAlliedWith(this)) {
+            return;
+        }
+
         if (target.maxRange() > this.maxRange()) {
             return;
         }

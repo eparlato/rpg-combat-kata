@@ -161,6 +161,18 @@ public class CharacterTest {
         assertThat(character.isAlliedWith(meleeFighter), is(true));
     }
 
+    @Test
+    public void character_cannot_deal_damage_to_an_ally() {
+        character.join(Faction.DEVELOPERS);
+
+        Character ally = new Character();
+        ally.join(Faction.DEVELOPERS);
+
+        character.attack(ally, 10);
+
+        assertThat(ally.health(), is(Character.MAX_HEALTH));
+    }
+
     private HashSet<Faction> aSetOf(Faction... factions) {
         return new HashSet<>(Arrays.asList(factions));
     }
