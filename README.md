@@ -1,6 +1,6 @@
 RPG Combat Kata
 ================
-Source: [https://github.com/ardalis/kata-catalog](https://github.com/ardalis/kata-catalog)
+[Source](https://github.com/ardalis/kata-catalog/blob/master/katas/RPG%20Combat.md)
 
 # Background #
 
