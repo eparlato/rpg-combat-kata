@@ -47,6 +47,29 @@ class Character {
         return 1;
     }
 
+    public Set<Faction> factionsJoined() {
+        return factionsJoined;
+    }
+
+    public void join(Faction faction) {
+        factionsJoined.add(faction);
+    }
+
+    public void leave(Faction faction) {
+        factionsJoined.remove(faction);
+    }
+
+    public boolean isAlliedWith(Character character) {
+
+        for (Faction faction : character.factionsJoined()) {
+            if (this.factionsJoined.contains(faction)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void receiveAttackFrom(Character attacker, int damageEffort) {
         health -= computeDealtDamage(attacker, damageEffort);
 
@@ -75,28 +98,5 @@ class Character {
 
     private boolean shouldReduceReceivedDamageFrom(Character attacker) {
         return (level - attacker.level) >= DAMAGE_REDUCTION_THRESHOLD;
-    }
-
-    public Set<Faction> factionsJoined() {
-        return factionsJoined;
-    }
-
-    public void join(Faction faction) {
-        factionsJoined.add(faction);
-    }
-
-    public void leave(Faction faction) {
-        factionsJoined.remove(faction);
-    }
-
-    public boolean isAlliedWith(Character character) {
-
-        for (Faction faction : character.factionsJoined()) {
-            if (this.factionsJoined.contains(faction)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
