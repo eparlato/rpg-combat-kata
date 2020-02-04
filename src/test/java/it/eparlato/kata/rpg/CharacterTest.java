@@ -150,6 +150,17 @@ public class CharacterTest {
         assertThat(character.factionsJoined(), is(aSetOf(Faction.SYSOPS, Faction.DEVELOPERS)));
     }
 
+    @Test
+    public void character_is_allied_with_another_character_if_they_belong_to_the_same_faction() {
+        character.join(Faction.DEVELOPERS);
+        character.join(Faction.SYSOPS);
+
+        Character meleeFighter = new MeleeFighter();
+        meleeFighter.join(Faction.DEVELOPERS);
+
+        assertThat(character.isAlliedWith(meleeFighter), is(true));
+    }
+
     private HashSet<Faction> aSetOf(Faction... factions) {
         return new HashSet<>(Arrays.asList(factions));
     }

@@ -88,4 +88,15 @@ class Character {
     public void leave(Faction faction) {
         factionsJoined.remove(faction);
     }
+
+    public boolean isAlliedWith(Character character) {
+
+        for (Faction faction : character.factionsJoined()) {
+            if (this.factionsJoined.contains(faction)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
