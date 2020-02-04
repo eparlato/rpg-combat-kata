@@ -184,7 +184,7 @@ public class CharacterTest {
         int healing = 5;
 
         attack(ally, inflictedDamage);
-        character.heal(ally, healing);
+        character.healCharacter(ally, healing);
 
         assertThat(ally.health(), is(Character.MAX_HEALTH - inflictedDamage + healing));
     }

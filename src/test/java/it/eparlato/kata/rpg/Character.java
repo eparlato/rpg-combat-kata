@@ -39,7 +39,6 @@ class Character {
         return health > 0;
     }
 
-    // TODO: these two methods have the same name
     public void heal(int healing) {
         health += healing;
 
@@ -48,7 +47,7 @@ class Character {
         }
     }
 
-    public void heal(Character target, int healing) {
+    public void healCharacter(Character target, int healing) {
         if (target.isAlliedWith(this)) {
             target.heal(healing);
         }
