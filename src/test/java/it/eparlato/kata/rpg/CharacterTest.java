@@ -173,6 +173,22 @@ public class CharacterTest {
         assertThat(ally.health(), is(Character.MAX_HEALTH));
     }
 
+    @Test
+    public void character_can_heal_an_ally() {
+        character.join(Faction.SYSOPS);
+
+        Character ally = new Character();
+        ally.join(Faction.SYSOPS);
+
+        int inflictedDamage = 10;
+        int healing = 5;
+
+        attack(ally, inflictedDamage);
+        character.heal(ally, healing);
+
+        assertThat(ally.health(), is(Character.MAX_HEALTH - inflictedDamage + healing));
+    }
+
     private HashSet<Faction> aSetOf(Faction... factions) {
         return new HashSet<>(Arrays.asList(factions));
     }
