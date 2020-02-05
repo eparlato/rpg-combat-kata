@@ -39,7 +39,7 @@ class Character {
         return health > 0;
     }
 
-    public void heal(int healing) {
+    public void receiveHealing(int healing) {
         health += healing;
 
         if (health > MAX_HEALTH) {
@@ -47,9 +47,9 @@ class Character {
         }
     }
 
-    public void healCharacter(Character target, int healing) {
+    public void heal(Character target, int healing) {
         if (target.isAlliedWith(this)) {
-            target.heal(healing);
+            target.receiveHealing(healing);
         }
      }
 

@@ -55,7 +55,7 @@ public class CharacterTest {
         attack(character, 2);
         int previousHealth = character.health();
 
-        character.heal(1);
+        character.receiveHealing(1);
 
         assertThat(character.health(), is(previousHealth + 1));
     }
@@ -64,7 +64,7 @@ public class CharacterTest {
     public void healing_cannot_raise_health_above_max_health() {
         attack(character, 1);
 
-        character.heal(2);
+        character.receiveHealing(2);
 
         assertThat(character.health(), is(Character.MAX_HEALTH));
     }
@@ -184,7 +184,7 @@ public class CharacterTest {
         int healing = 5;
 
         attack(ally, inflictedDamage);
-        character.healCharacter(ally, healing);
+        character.heal(ally, healing);
 
         assertThat(ally.health(), is(Character.MAX_HEALTH - inflictedDamage + healing));
     }
