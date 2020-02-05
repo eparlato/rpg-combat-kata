@@ -2,7 +2,7 @@ package it.eparlato.kata.rpg;
 
 import java.util.*;
 
-class Character {
+public class Character {
     public static final int MAX_HEALTH = 1000;
     public static final int DAMAGE_REDUCTION_THRESHOLD = 5;
     public static final int DAMAGE_AMPLIFICATION_THRESHOLD = 5;
@@ -21,18 +21,6 @@ class Character {
 
     public int health() {
         return this.health;
-    }
-
-    public void attack(Character target, int damage) {
-        if (target.isAlliedWith(this)) {
-            return;
-        }
-
-        if (target.maxRange() > this.maxRange()) {
-            return;
-        }
-
-        target.receiveAttackFrom(this, damage);
     }
 
     public boolean isAlive() {
@@ -80,7 +68,7 @@ class Character {
         return false;
     }
 
-    private void receiveAttackFrom(Character attacker, int damageEffort) {
+    public void receiveAttackFrom(Character attacker, int damageEffort) {
         health -= computeDealtDamage(attacker, damageEffort);
 
         if (health < 0) {

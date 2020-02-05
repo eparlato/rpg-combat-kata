@@ -1,5 +1,7 @@
 package it.eparlato.kata.rpg;
 
+import it.eparlato.kata.rpg.actions.Action;
+import it.eparlato.kata.rpg.actions.Attack;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,7 +76,7 @@ public class CharacterTest {
         Character attacker = new Character(attackerLevel = 1);
         Character target = new Character(attackerLevel + Character.DAMAGE_REDUCTION_THRESHOLD);
 
-        attacker.attack(target, damage = 2);
+        attack(attacker, target, damage = 2);
 
         assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfReductionOf(damage)));
     }
@@ -84,7 +86,7 @@ public class CharacterTest {
         Character attacker = new Character(attackerLevel = 1);
         Character target = new Character(attackerLevel + Character.DAMAGE_REDUCTION_THRESHOLD);
 
-        attacker.attack(target, damage = 3);
+        attack(attacker, target, damage = 3);
 
         int damageReceivedByTarget = 1;
 
@@ -96,7 +98,8 @@ public class CharacterTest {
         Character target = new Character(targetLevel = 1);
 
         Character attacker = new Character(targetLevel + Character.DAMAGE_AMPLIFICATION_THRESHOLD);
-        attacker.attack(target, damage = 2);
+
+        attack(attacker, target, damage = 2);
 
         assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfAmplificationOf(damage)));
     }
@@ -111,7 +114,7 @@ public class CharacterTest {
         RangedFighter rangedFighter = new RangedFighter();
         Character meleeFighter = new MeleeFighter();
 
-        meleeFighter.attack(rangedFighter, 1);
+        attack(meleeFighter, rangedFighter, 1);
 
         assertThat(rangedFighter.health(), is(Character.MAX_HEALTH));
     }
@@ -168,7 +171,7 @@ public class CharacterTest {
         Character ally = new Character();
         ally.join(Faction.DEVELOPERS);
 
-        character.attack(ally, 10);
+        attack(character, ally, 10);
 
         assertThat(ally.health(), is(Character.MAX_HEALTH));
     }
@@ -202,7 +205,12 @@ public class CharacterTest {
     }
 
     private void attack(Character target, int damageDealt) {
-        new Character().attack(target, damageDealt);
+        attack(new Character(), target, damageDealt);
+    }
+
+    private void attack(Character attacker, Character target, int damageDealt) {
+        Action attack = new Attack(attacker, target, damageDealt);
+        attack.execute();
     }
 
     private int attackerLevel;
