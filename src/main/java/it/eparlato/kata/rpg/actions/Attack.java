@@ -32,20 +32,20 @@ public class Attack implements Action {
     }
 
     private int computeDealtDamage(Character attacker, Character target, int damageEffort) {
-        if (shouldTargetReduceReceivedDamageFromAttacker(attacker, target)) {
+        if (shouldBeDamageReducedByHalf(attacker, target)) {
             return halfOf(damageEffort);
         }
-        if (shouldTargetIncreaseReceivedDamageFromAttacker(attacker, target)) {
+        if (shouldBeDamageIncreasedByHalf(attacker, target)) {
             return damageEffort + halfOf(damageEffort);
         }
         return damageEffort;
     }
 
-    private boolean shouldTargetIncreaseReceivedDamageFromAttacker(Character attacker, Character target) {
+    private boolean shouldBeDamageIncreasedByHalf(Character attacker, Character target) {
         return (attacker.getLevel() - target.getLevel()) >= DAMAGE_AMPLIFICATION_THRESHOLD;
     }
 
-    private boolean shouldTargetReduceReceivedDamageFromAttacker(Character attacker, Character target) {
+    private boolean shouldBeDamageReducedByHalf(Character attacker, Character target) {
         return (target.getLevel() - attacker.getLevel()) >= DAMAGE_REDUCTION_THRESHOLD;
     }
 
