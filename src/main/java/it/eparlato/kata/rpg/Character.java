@@ -7,9 +7,10 @@ public class Character {
     public static final int DAMAGE_REDUCTION_THRESHOLD = 5;
     public static final int DAMAGE_AMPLIFICATION_THRESHOLD = 5;
     private int health;
-    private int level;
-    private Set<Faction> factionsJoined = new HashSet<>();
 
+    private int level;
+
+    private Set<Faction> factionsJoined = new HashSet<>();
     public Character() {
         this(1);
     }
@@ -17,6 +18,10 @@ public class Character {
     public Character(int level) {
         this.level = level;
         this.health = MAX_HEALTH;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public int health() {
@@ -68,33 +73,11 @@ public class Character {
         return false;
     }
 
-    public void receiveAttackFrom(Character attacker, int damageEffort) {
-        health -= computeDealtDamage(attacker, damageEffort);
+    public void receiveDamage(int damageDealt) {
+        health -= damageDealt;
 
         if (health < 0) {
             health = 0;
         }
-    }
-
-    private int computeDealtDamage(Character attacker, int damage) {
-        if (shouldReduceReceivedDamageFrom(attacker)) {
-            return halfOf(damage);
-        }
-        if (shouldIncreaseReceivedDamageFrom(attacker)) {
-            return damage + halfOf(damage);
-        }
-        return damage;
-    }
-
-    private int halfOf(int damage) {
-        return damage / 2;
-    }
-
-    private boolean shouldIncreaseReceivedDamageFrom(Character attacker) {
-        return (attacker.level - level) >= DAMAGE_AMPLIFICATION_THRESHOLD;
-    }
-
-    private boolean shouldReduceReceivedDamageFrom(Character attacker) {
-        return (level - attacker.level) >= DAMAGE_REDUCTION_THRESHOLD;
     }
 }
