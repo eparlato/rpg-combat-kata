@@ -125,8 +125,8 @@ public class CharacterTest {
     public void character_can_join_factions() {
         Set<Faction> factions = aSetOf(Faction.DEVELOPERS, Faction.SYSOPS);
 
-        character.join(Faction.DEVELOPERS);
-        character.join(Faction.SYSOPS);
+        join(Faction.DEVELOPERS);
+        join(Faction.SYSOPS);
 
         assertThat(character.factionsJoined(), is(factions));
     }
@@ -138,40 +138,40 @@ public class CharacterTest {
 
     @Test
     public void character_can_leave_a_faction() {
-        character.join(Faction.DEVELOPERS);
-        character.join(Faction.SYSOPS);
+        join(Faction.DEVELOPERS);
+        join(Faction.SYSOPS);
 
-        character.leave(Faction.DEVELOPERS);
+        leave(Faction.DEVELOPERS);
 
         assertThat(character.factionsJoined(), is(aSetOf(Faction.SYSOPS)));
     }
 
     @Test
     public void character_can_not_join_the_same_faction_twice() {
-        character.join(Faction.DEVELOPERS);
-        character.join(Faction.SYSOPS);
-        character.join(Faction.DEVELOPERS);
+        join(Faction.DEVELOPERS);
+        join(Faction.SYSOPS);
+        join(Faction.DEVELOPERS);
 
         assertThat(character.factionsJoined(), is(aSetOf(Faction.SYSOPS, Faction.DEVELOPERS)));
     }
 
     @Test
     public void character_is_allied_with_another_character_if_they_belong_to_the_same_faction() {
-        character.join(Faction.DEVELOPERS);
-        character.join(Faction.SYSOPS);
-
         Character meleeFighter = new MeleeFighter();
-        meleeFighter.join(Faction.DEVELOPERS);
+
+        join(Faction.DEVELOPERS);
+        join(Faction.SYSOPS);
+        join(meleeFighter, Faction.DEVELOPERS);
 
         assertThat(character.isAlliedWith(meleeFighter), is(true));
     }
 
     @Test
     public void character_cannot_deal_damage_to_an_ally() {
-        character.join(Faction.DEVELOPERS);
-
         Character ally = new Character();
-        ally.join(Faction.DEVELOPERS);
+
+        join(Faction.DEVELOPERS);
+        join(ally, Faction.DEVELOPERS);
 
         attack(character, ally, 10);
 
@@ -180,10 +180,10 @@ public class CharacterTest {
 
     @Test
     public void character_can_heal_an_ally() {
-        character.join(Faction.SYSOPS);
-
         Character ally = new Character();
-        ally.join(Faction.SYSOPS);
+
+        join(Faction.SYSOPS);
+        join(ally, Faction.SYSOPS);
 
         int inflictedDamage = 10;
         int healing = 5;
@@ -237,6 +237,18 @@ public class CharacterTest {
     private void heal(Character healer, Character patient, int healingQuantity) {
         Action healing = new Healing(healer, patient, healingQuantity);
         healing.execute();
+    }
+
+    private void join(Faction faction) {
+        join(character, faction);
+    }
+
+    private void join(Character character, Faction faction) {
+        character.join(faction);
+    }
+
+    private void leave(Faction faction) {
+        character.leave(faction);
     }
 
     private int attackerLevel;
