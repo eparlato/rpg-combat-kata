@@ -18,20 +18,20 @@ public class Attack implements Action {
 
     @Override
     public void execute() {
-        if (target.isAlliedWith(attacker)) {
-            return;
-        }
-
-        if (target.maxRange() > attacker.maxRange()) {
-            return;
-        }
-
         int damageDealt = computeDealtDamage(attacker, target, damageEffort);
 
         target.receiveDamage(damageDealt);
     }
 
     private int computeDealtDamage(Character attacker, Character target, int damageEffort) {
+        if (target.isAlliedWith(attacker)) {
+            return 0;
+        }
+
+        if (target.maxRange() > attacker.maxRange()) {
+            return 0;
+        }
+
         if (shouldBeDamageReducedByHalf(attacker, target)) {
             return halfOf(damageEffort);
         }
