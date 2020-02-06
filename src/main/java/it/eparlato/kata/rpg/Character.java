@@ -40,12 +40,6 @@ public class Character {
         }
     }
 
-    public void heal(Character target, int healing) {
-        if (target.isAlliedWith(this)) {
-            target.receiveHealing(healing);
-        }
-     }
-
     public int maxRange() {
         return 1;
     }
