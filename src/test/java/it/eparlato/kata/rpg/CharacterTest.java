@@ -2,6 +2,7 @@ package it.eparlato.kata.rpg;
 
 import it.eparlato.kata.rpg.actions.Action;
 import it.eparlato.kata.rpg.actions.Attack;
+import it.eparlato.kata.rpg.actions.Healing;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -214,8 +215,9 @@ public class CharacterTest {
         attack.execute();
     }
 
-    private void healItself(Character patient, int healing) {
-        patient.receiveHealing(healing);
+    private void healItself(Character patient, int healingQuantity) {
+        Action healing = new Healing(patient, patient, healingQuantity);
+        healing.execute();
     }
 
     private void healItself(Character healer, Character patient, int healing) {
