@@ -15,6 +15,12 @@ public class Healing implements Action {
 
     @Override
     public void execute() {
-        patient.receiveHealing(healingQuantity);
+        if (healer.isAlliedWith(patient) || isCharacterHealingHimself()) {
+            patient.receiveHealing(healingQuantity);
+        }
+    }
+
+    private boolean isCharacterHealingHimself() {
+        return healer.equals(patient);
     }
 }

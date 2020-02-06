@@ -32,6 +32,14 @@ public class Character {
         return health > 0;
     }
 
+    public void receiveDamage(int damageDealt) {
+        health -= damageDealt;
+
+        if (health < 0) {
+            health = 0;
+        }
+    }
+
     public void receiveHealing(int healing) {
         health += healing;
 
@@ -65,13 +73,5 @@ public class Character {
         }
 
         return false;
-    }
-
-    public void receiveDamage(int damageDealt) {
-        health -= damageDealt;
-
-        if (health < 0) {
-            health = 0;
-        }
     }
 }

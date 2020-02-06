@@ -8,11 +8,12 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static it.eparlato.kata.rpg.Character.MAX_HEALTH;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class CharacterTest {
-    private static final int DAMAGE_EXCEEDING_HEALTH = Character.MAX_HEALTH + 1;
+    private static final int DAMAGE_EXCEEDING_HEALTH = MAX_HEALTH + 1;
     private Character character;
 
     @Before
@@ -22,7 +23,7 @@ public class CharacterTest {
 
     @Test
     public void has_health_at_1000_when_created() {
-        assertThat(character.health(), is(Character.MAX_HEALTH));
+        assertThat(character.health(), is(MAX_HEALTH));
     }
 
     @Test
@@ -69,7 +70,7 @@ public class CharacterTest {
 
         heal(character, 2);
 
-        assertThat(character.health(), is(Character.MAX_HEALTH));
+        assertThat(character.health(), is(MAX_HEALTH));
     }
 
     @Test
@@ -79,7 +80,7 @@ public class CharacterTest {
 
         attack(attacker, target, damage = 2);
 
-        assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfReductionOf(damage)));
+        assertThat(target.health(), is(MAX_HEALTH - fiftyPercentOfReductionOf(damage)));
     }
 
     @Test
@@ -91,7 +92,7 @@ public class CharacterTest {
 
         int damageReceivedByTarget = 1;
 
-        assertThat(target.health(), is(Character.MAX_HEALTH - damageReceivedByTarget));
+        assertThat(target.health(), is(MAX_HEALTH - damageReceivedByTarget));
     }
 
     @Test
@@ -102,7 +103,7 @@ public class CharacterTest {
 
         attack(attacker, target, damage = 2);
 
-        assertThat(target.health(), is(Character.MAX_HEALTH - fiftyPercentOfAmplificationOf(damage)));
+        assertThat(target.health(), is(MAX_HEALTH - fiftyPercentOfAmplificationOf(damage)));
     }
 
     @Test
@@ -117,7 +118,7 @@ public class CharacterTest {
 
         attack(meleeFighter, rangedFighter, 1);
 
-        assertThat(rangedFighter.health(), is(Character.MAX_HEALTH));
+        assertThat(rangedFighter.health(), is(MAX_HEALTH));
     }
 
     @Test
@@ -174,7 +175,7 @@ public class CharacterTest {
 
         attack(character, ally, 10);
 
-        assertThat(ally.health(), is(Character.MAX_HEALTH));
+        assertThat(ally.health(), is(MAX_HEALTH));
     }
 
     @Test
@@ -191,7 +192,21 @@ public class CharacterTest {
 
         heal(character, ally, healing);
 
-        assertThat(ally.health(), is(Character.MAX_HEALTH - inflictedDamage + healing));
+        assertThat(ally.health(), is(MAX_HEALTH - inflictedDamage + healing));
+    }
+
+    @Test
+    public void character_can_not_heal_a_not_allied_character() {
+        Character notAllied = new Character();
+
+        int inflictedDamage = 10;
+        int healing = 5;
+
+        attack(notAllied, inflictedDamage);
+
+        heal(character, notAllied, healing);
+
+        assertThat(notAllied.health(), is(MAX_HEALTH - inflictedDamage));
     }
 
     private HashSet<Faction> aSetOf(Faction... factions) {
