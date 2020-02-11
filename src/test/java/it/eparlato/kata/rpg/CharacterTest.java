@@ -3,6 +3,7 @@ package it.eparlato.kata.rpg;
 import it.eparlato.kata.rpg.actions.Action;
 import it.eparlato.kata.rpg.actions.Attack;
 import it.eparlato.kata.rpg.actions.Healing;
+import it.eparlato.kata.rpg.actions.Join;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -123,12 +124,27 @@ public class CharacterTest {
 
     @Test
     public void character_can_join_factions() {
-        Set<Faction> factions = aSetOf(Faction.DEVELOPERS, Faction.SYSOPS);
+        Set<FactionEnum> factions = aSetOf(FactionEnum.DEVELOPERS, FactionEnum.SYSOPS);
 
-        join(Faction.DEVELOPERS);
-        join(Faction.SYSOPS);
+        join(FactionEnum.DEVELOPERS);
+        join(FactionEnum.SYSOPS);
 
         assertThat(character.factionsJoined(), is(factions));
+    }
+
+    @Test
+    public void factions_can_be_joined_by_a_character() {
+        Faction developers = new Faction();
+        Faction sysOps = new Faction();
+
+        Action join = new Join(developers, character);
+        join.execute();
+
+        join = new Join(sysOps, character);
+        join.execute();
+
+        assertThat(developers.hasMember(character), is(true));
+        assertThat(sysOps.hasMember(character), is(true));
     }
 
     @Test
@@ -138,30 +154,30 @@ public class CharacterTest {
 
     @Test
     public void character_can_leave_a_faction() {
-        join(Faction.DEVELOPERS);
-        join(Faction.SYSOPS);
+        join(FactionEnum.DEVELOPERS);
+        join(FactionEnum.SYSOPS);
 
-        leave(Faction.DEVELOPERS);
+        leave(FactionEnum.DEVELOPERS);
 
-        assertThat(character.factionsJoined(), is(aSetOf(Faction.SYSOPS)));
+        assertThat(character.factionsJoined(), is(aSetOf(FactionEnum.SYSOPS)));
     }
 
     @Test
     public void character_can_not_join_the_same_faction_twice() {
-        join(Faction.DEVELOPERS);
-        join(Faction.SYSOPS);
-        join(Faction.DEVELOPERS);
+        join(FactionEnum.DEVELOPERS);
+        join(FactionEnum.SYSOPS);
+        join(FactionEnum.DEVELOPERS);
 
-        assertThat(character.factionsJoined(), is(aSetOf(Faction.SYSOPS, Faction.DEVELOPERS)));
+        assertThat(character.factionsJoined(), is(aSetOf(FactionEnum.SYSOPS, FactionEnum.DEVELOPERS)));
     }
 
     @Test
     public void character_is_allied_with_another_character_if_they_belong_to_the_same_faction() {
         Character meleeFighter = new MeleeFighter();
 
-        join(Faction.DEVELOPERS);
-        join(Faction.SYSOPS);
-        join(meleeFighter, Faction.DEVELOPERS);
+        join(FactionEnum.DEVELOPERS);
+        join(FactionEnum.SYSOPS);
+        join(meleeFighter, FactionEnum.DEVELOPERS);
 
         assertThat(character.isAlliedWith(meleeFighter), is(true));
     }
@@ -170,8 +186,8 @@ public class CharacterTest {
     public void character_cannot_deal_damage_to_an_ally() {
         Character ally = new Character();
 
-        join(Faction.DEVELOPERS);
-        join(ally, Faction.DEVELOPERS);
+        join(FactionEnum.DEVELOPERS);
+        join(ally, FactionEnum.DEVELOPERS);
 
         attack(character, ally, 10);
 
@@ -182,8 +198,8 @@ public class CharacterTest {
     public void character_can_heal_an_ally() {
         Character ally = new Character();
 
-        join(Faction.SYSOPS);
-        join(ally, Faction.SYSOPS);
+        join(FactionEnum.SYSOPS);
+        join(ally, FactionEnum.SYSOPS);
 
         int inflictedDamage = 10;
         int healing = 5;
@@ -209,7 +225,7 @@ public class CharacterTest {
         assertThat(notAllied.health(), is(MAX_HEALTH - inflictedDamage));
     }
 
-    private HashSet<Faction> aSetOf(Faction... factions) {
+    private HashSet<FactionEnum> aSetOf(FactionEnum... factions) {
         return new HashSet<>(Arrays.asList(factions));
     }
 
@@ -239,15 +255,15 @@ public class CharacterTest {
         healing.execute();
     }
 
-    private void join(Faction faction) {
+    private void join(FactionEnum faction) {
         join(character, faction);
     }
 
-    private void join(Character character, Faction faction) {
+    private void join(Character character, FactionEnum faction) {
         character.join(faction);
     }
 
-    private void leave(Faction faction) {
+    private void leave(FactionEnum faction) {
         character.leave(faction);
     }
 

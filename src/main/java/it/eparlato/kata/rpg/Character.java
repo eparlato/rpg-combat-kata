@@ -10,7 +10,7 @@ public class Character {
 
     private int level;
 
-    private Set<Faction> factionsJoined = new HashSet<>();
+    private Set<FactionEnum> factionsJoined = new HashSet<>();
     public Character() {
         this(1);
     }
@@ -52,21 +52,21 @@ public class Character {
         return 1;
     }
 
-    public Set<Faction> factionsJoined() {
+    public Set<FactionEnum> factionsJoined() {
         return factionsJoined;
     }
 
-    public void join(Faction faction) {
+    public void join(FactionEnum faction) {
         factionsJoined.add(faction);
     }
 
-    public void leave(Faction faction) {
+    public void leave(FactionEnum faction) {
         factionsJoined.remove(faction);
     }
 
     public boolean isAlliedWith(Character character) {
 
-        for (Faction faction : character.factionsJoined()) {
+        for (FactionEnum faction : character.factionsJoined()) {
             if (this.factionsJoined.contains(faction)) {
                 return true;
             }
