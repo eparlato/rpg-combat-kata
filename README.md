@@ -65,3 +65,9 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 1. Allies cannot Deal Damage to one another.
 
 1. Allies can Heal one another.
+
+## TODO
+
+Why should a Character contain a set of Factions he belongs to? Why not building a list of Faction object, 
+each faction with a list of characters they belong to it?
+Then a new Joining action might update these Faction objects, and check whether a character belongs to it or not. 
