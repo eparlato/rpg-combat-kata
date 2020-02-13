@@ -1,10 +1,6 @@
 package it.eparlato.kata.rpg.actions;
 
 import it.eparlato.kata.rpg.Character;
-import it.eparlato.kata.rpg.Faction;
-
-import java.util.List;
-
 import static it.eparlato.kata.rpg.Character.DAMAGE_AMPLIFICATION_THRESHOLD;
 import static it.eparlato.kata.rpg.Character.DAMAGE_REDUCTION_THRESHOLD;
 
@@ -29,10 +25,6 @@ public class Attack implements Action {
     }
 
     private int computeDealtDamage(Character attacker, Character target, int damageEffort) {
-        if (target.isAlliedWith(attacker)) {
-            return 0;
-        }
-
         if (areAllies) {
             return 0;
         }

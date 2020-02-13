@@ -6,8 +6,6 @@ import it.eparlato.kata.rpg.actions.Healing;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
-
 import static it.eparlato.kata.rpg.Character.MAX_HEALTH;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -121,98 +119,6 @@ public class CharacterTest {
         assertThat(rangedFighter.health(), is(MAX_HEALTH));
     }
 
-    @Test
-    public void character_can_join_factions() {
-        Set<FactionEnum> factions = aSetOf(FactionEnum.DEVELOPERS, FactionEnum.SYSOPS);
-
-        join(FactionEnum.DEVELOPERS);
-        join(FactionEnum.SYSOPS);
-
-        assertThat(character.factionsJoined(), is(factions));
-    }
-
-    @Test
-    public void newly_create_character_does_not_belong_to_any_faction() {
-        assertThat(character.factionsJoined(), is(Collections.emptySet()));
-    }
-
-    @Test
-    public void character_can_leave_a_faction() {
-        join(FactionEnum.DEVELOPERS);
-        join(FactionEnum.SYSOPS);
-
-        leave(FactionEnum.DEVELOPERS);
-
-        assertThat(character.factionsJoined(), is(aSetOf(FactionEnum.SYSOPS)));
-    }
-
-    @Test
-    public void character_can_not_join_the_same_faction_twice() {
-        join(FactionEnum.DEVELOPERS);
-        join(FactionEnum.SYSOPS);
-        join(FactionEnum.DEVELOPERS);
-
-        assertThat(character.factionsJoined(), is(aSetOf(FactionEnum.SYSOPS, FactionEnum.DEVELOPERS)));
-    }
-
-    @Test
-    public void character_is_allied_with_another_character_if_they_belong_to_the_same_faction() {
-        Character meleeFighter = new MeleeFighter();
-
-        join(FactionEnum.DEVELOPERS);
-        join(FactionEnum.SYSOPS);
-        join(meleeFighter, FactionEnum.DEVELOPERS);
-
-        assertThat(character.isAlliedWith(meleeFighter), is(true));
-    }
-
-    @Test
-    public void character_cannot_deal_damage_to_an_ally() {
-        Character ally = new Character();
-
-        join(FactionEnum.DEVELOPERS);
-        join(ally, FactionEnum.DEVELOPERS);
-
-        attack(character, ally, 10);
-
-        assertThat(ally.health(), is(MAX_HEALTH));
-    }
-
-    @Test
-    public void character_can_heal_an_ally() {
-        Character ally = new Character();
-
-        join(FactionEnum.SYSOPS);
-        join(ally, FactionEnum.SYSOPS);
-
-        int inflictedDamage = 10;
-        int healing = 5;
-
-        attack(ally, inflictedDamage);
-
-        heal(character, ally, healing, true);
-
-        assertThat(ally.health(), is(MAX_HEALTH - inflictedDamage + healing));
-    }
-
-    @Test
-    public void character_can_not_heal_a_not_allied_character() {
-        Character notAllied = new Character();
-
-        int inflictedDamage = 10;
-        int healing = 5;
-
-        attack(notAllied, inflictedDamage);
-
-        heal(character, notAllied, healing, false);
-
-        assertThat(notAllied.health(), is(MAX_HEALTH - inflictedDamage));
-    }
-
-    private HashSet<FactionEnum> aSetOf(FactionEnum... factions) {
-        return new HashSet<>(Arrays.asList(factions));
-    }
-
     private int fiftyPercentOfReductionOf(int damage) {
         return (int) (damage * 0.5);
     }
@@ -231,24 +137,8 @@ public class CharacterTest {
     }
 
     private void heal(Character patient, int healingQuantity) {
-        heal(patient, patient, healingQuantity, false);
-    }
-
-    private void heal(Character healer, Character patient, int healingQuantity, boolean areAllies) {
-        Action healing = new Healing(healer, patient, healingQuantity, areAllies);
+        Action healing = new Healing(patient, patient, healingQuantity, false);
         healing.execute();
-    }
-
-    private void join(FactionEnum faction) {
-        join(character, faction);
-    }
-
-    private void join(Character character, FactionEnum faction) {
-        character.join(faction);
-    }
-
-    private void leave(FactionEnum faction) {
-        character.leave(faction);
     }
 
     private int attackerLevel;
