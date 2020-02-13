@@ -11,17 +11,18 @@ import static org.hamcrest.core.Is.is;
 
 public class FactionTest {
     private Character character;
+    private Faction developers;
+    private Faction sysOps;
 
     @Before
     public void setUp() {
         character = new Character();
+        developers = new Faction();
+        sysOps = new Faction();
     }
 
     @Test
     public void can_accept_a_new_member() {
-        Faction developers = new Faction();
-        Faction sysOps = new Faction();
-
         join(developers);
         join(sysOps);
 
@@ -31,8 +32,6 @@ public class FactionTest {
 
     @Test
     public void can_throw_out_a_member() {
-        Faction developers = new Faction();
-
         join(developers);
         leave(developers);
 
@@ -41,7 +40,6 @@ public class FactionTest {
 
     @Test
     public void tells_if_two_characters_are_allied() {
-        Faction sysOps = new Faction();
         Character alliedFellow = new Character();
 
         join(sysOps);
@@ -51,8 +49,7 @@ public class FactionTest {
     }
 
     private void join(Faction faction) {
-        Action accept = new Accept(faction, character);
-        accept.execute();
+        join(faction, character);
     }
 
     private void join(Faction faction, Character character) {
