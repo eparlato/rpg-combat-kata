@@ -133,21 +133,6 @@ public class CharacterTest {
     }
 
     @Test
-    public void factions_can_be_joined_by_a_character() {
-        Faction developers = new Faction();
-        Faction sysOps = new Faction();
-
-        Action join = new Join(developers, character);
-        join.execute();
-
-        join = new Join(sysOps, character);
-        join.execute();
-
-        assertThat(developers.hasMember(character), is(true));
-        assertThat(sysOps.hasMember(character), is(true));
-    }
-
-    @Test
     public void newly_create_character_does_not_belong_to_any_faction() {
         assertThat(character.factionsJoined(), is(Collections.emptySet()));
     }
