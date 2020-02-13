@@ -17,4 +17,8 @@ public class Faction {
     public void throwOut(Character member) {
         this.members.remove(member);
     }
+
+    public boolean areAllies(Character character, Character anotherCharacter) {
+        return (members.contains(character) && members.contains(anotherCharacter));
+    }
 }

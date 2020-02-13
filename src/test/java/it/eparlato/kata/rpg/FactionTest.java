@@ -39,13 +39,29 @@ public class FactionTest {
         assertThat(developers.hasMember(character), is(false));
     }
 
-    private void leave(Faction faction) {
-        Action throwOut = new ThrowOut(faction, character);
-        throwOut.execute();
+    @Test
+    public void tells_if_two_characters_are_allied() {
+        Faction sysOps = new Faction();
+        Character alliedFellow = new Character();
+
+        join(sysOps);
+        join(sysOps, alliedFellow);
+
+        assertThat(sysOps.areAllies(character, alliedFellow), is(true));
     }
 
     private void join(Faction faction) {
         Action accept = new Accept(faction, character);
         accept.execute();
+    }
+
+    private void join(Faction faction, Character character) {
+        Action throwOut = new Accept(faction, character);
+        throwOut.execute();
+    }
+
+    private void leave(Faction faction) {
+        Action throwOut = new ThrowOut(faction, character);
+        throwOut.execute();
     }
 }
