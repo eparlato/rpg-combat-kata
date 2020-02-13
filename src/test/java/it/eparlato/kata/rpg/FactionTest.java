@@ -1,7 +1,7 @@
 package it.eparlato.kata.rpg;
 
 import it.eparlato.kata.rpg.actions.Action;
-import it.eparlato.kata.rpg.actions.Join;
+import it.eparlato.kata.rpg.actions.Accept;
 import it.eparlato.kata.rpg.actions.ThrowOut;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +18,12 @@ public class FactionTest {
     }
 
     @Test
-    public void factions_can_be_joined_by_a_character() {
+    public void can_accept_a_new_member() {
         Faction developers = new Faction();
         Faction sysOps = new Faction();
 
-        join(developers, character);
-        join(sysOps, character);
+        join(developers);
+        join(sysOps);
 
         assertThat(developers.hasMember(character), is(true));
         assertThat(sysOps.hasMember(character), is(true));
@@ -33,7 +33,7 @@ public class FactionTest {
     public void can_throw_out_a_member() {
         Faction developers = new Faction();
 
-        join(developers, character);
+        join(developers);
         leave(developers);
 
         assertThat(developers.hasMember(character), is(false));
@@ -44,8 +44,8 @@ public class FactionTest {
         throwOut.execute();
     }
 
-    private void join(Faction faction, Character character) {
-        Action join = new Join(faction, character);
-        join.execute();
+    private void join(Faction faction) {
+        Action accept = new Accept(faction, character);
+        accept.execute();
     }
 }

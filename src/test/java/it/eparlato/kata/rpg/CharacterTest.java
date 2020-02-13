@@ -3,7 +3,6 @@ package it.eparlato.kata.rpg;
 import it.eparlato.kata.rpg.actions.Action;
 import it.eparlato.kata.rpg.actions.Attack;
 import it.eparlato.kata.rpg.actions.Healing;
-import it.eparlato.kata.rpg.actions.Join;
 import org.junit.Before;
 import org.junit.Test;
 
