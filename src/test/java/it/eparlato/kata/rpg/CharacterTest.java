@@ -226,7 +226,7 @@ public class CharacterTest {
     }
 
     private void attack(Character attacker, Character target, int damageDealt) {
-        Action attack = new Attack(attacker, target, damageDealt, Collections.emptyList());
+        Action attack = new Attack(attacker, target, damageDealt, false);
         attack.execute();
     }
 

@@ -12,13 +12,13 @@ public class Attack implements Action {
     private final Character attacker;
     private final Character target;
     private final int damageEffort;
-    private final List<Faction> factions;
+    private final boolean areAllies;
 
-    public Attack(Character attacker, Character target, int damageEffort, List<Faction> factions) {
+    public Attack(Character attacker, Character target, int damageEffort, boolean areAllies) {
         this.attacker = attacker;
         this.target = target;
         this.damageEffort = damageEffort;
-        this.factions = factions;
+        this.areAllies = areAllies;
     }
 
     @Override
@@ -33,9 +33,8 @@ public class Attack implements Action {
             return 0;
         }
 
-        for (Faction faction : factions) {
-            if (faction.areAllies(attacker, target))
-                return 0;
+        if (areAllies) {
+            return 0;
         }
 
         if (target.maxRange() > attacker.maxRange()) {
