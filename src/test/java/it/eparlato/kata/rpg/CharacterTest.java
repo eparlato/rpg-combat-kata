@@ -190,7 +190,7 @@ public class CharacterTest {
 
         attack(ally, inflictedDamage);
 
-        heal(character, ally, healing);
+        heal(character, ally, healing, true);
 
         assertThat(ally.health(), is(MAX_HEALTH - inflictedDamage + healing));
     }
@@ -204,7 +204,7 @@ public class CharacterTest {
 
         attack(notAllied, inflictedDamage);
 
-        heal(character, notAllied, healing);
+        heal(character, notAllied, healing, false);
 
         assertThat(notAllied.health(), is(MAX_HEALTH - inflictedDamage));
     }
@@ -231,11 +231,11 @@ public class CharacterTest {
     }
 
     private void heal(Character patient, int healingQuantity) {
-        heal(patient, patient, healingQuantity);
+        heal(patient, patient, healingQuantity, false);
     }
 
-    private void heal(Character healer, Character patient, int healingQuantity) {
-        Action healing = new Healing(healer, patient, healingQuantity);
+    private void heal(Character healer, Character patient, int healingQuantity, boolean areAllies) {
+        Action healing = new Healing(healer, patient, healingQuantity, areAllies);
         healing.execute();
     }
 
