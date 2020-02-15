@@ -66,6 +66,30 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
 1. Allies can Heal one another.
 
+## Iteration Five ##
+
+1. Characters can damage non-character *things* (props).
+    - Anything that has Health may be a target
+    - These things cannot be Healed and they do not Deal Damage
+    - These things do not belong to Factions; they are neutral
+    - When reduced to 0 Health, things are *Destroyed*
+    - As an example, you may create a Tree with 2000 Health
+
+## Retrospective ##
+
+- What problems did you encounter?
+- What have you learned? Any new technique or pattern?
+- Share your design with others, and get feedback on different approaches.
+
+# Resources #
+
+- Original Source: http://www.slideshare.net/DanielOjedaLoisel/rpg-combat-kata
+
 ## TODO
 
 * Tests on damage computation should be moved to AttackTest class. Or maybe there should be a new collaborator for Attack that computes damage.
+
+## Lessons learned
+
+* always remove duplication, from everywhere. If I have to change something, I want to change it in ONE place.
+  * Ex. in CharacterTest, if the "attack" action is equal in every test, put it in a private method attack(). 
