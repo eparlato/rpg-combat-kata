@@ -6,13 +6,19 @@ import it.eparlato.kata.rpg.actions.Healing;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collections;
+
 import static it.eparlato.kata.rpg.Character.MAX_HEALTH;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CharacterTest {
     private static final int DAMAGE_EXCEEDING_HEALTH = MAX_HEALTH + 1;
     private Character character;
+
+    private Council council = mock(Council.class);
 
     @Before
     public void setUp() {
@@ -132,12 +138,14 @@ public class CharacterTest {
     }
 
     private void attack(Character attacker, Character target, int damageDealt) {
-        Action attack = new Attack(attacker, target, damageDealt, false);
+        Action attack = new Attack(attacker, target, damageDealt, new Council(Collections.emptySet()));
         attack.execute();
     }
 
     private void heal(Character patient, int healingQuantity) {
-        Action healing = new Healing(patient, patient, healingQuantity, false);
+        when(council.areAllies(patient, patient)).thenReturn(false);
+
+        Action healing = new Healing(patient, patient, healingQuantity, council);
         healing.execute();
     }
 
