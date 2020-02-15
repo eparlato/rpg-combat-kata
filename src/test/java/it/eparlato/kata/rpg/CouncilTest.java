@@ -1,15 +1,17 @@
 package it.eparlato.kata.rpg;
 
 import org.junit.Test;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.mockito.internal.util.collections.Sets;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CouncilTest {
     Council council;
+
+    Faction faction = mock(Faction.class);
 
     @Test
     public void can_see_whether_two_characters_are_allies_or_not() {
@@ -21,16 +23,8 @@ public class CouncilTest {
     }
 
     private void createFactionTwoAlliedFellows(Character fellow, Character fellowAlly) {
-        // TODO: complex test setup, I could avoid it using a mock of Faction, mocking its areAllies method...
-        Set<Faction> factions = new HashSet<>();
-        Faction warriors = new Faction();
-        Faction wizards = new Faction();
-        factions.add(warriors);
-        factions.add(wizards);
+        when(faction.areAllies(fellow, fellowAlly)).thenReturn(true);
 
-        warriors.accept(fellow);
-        warriors.accept(fellowAlly);
-
-        council = new Council(factions);
+        council = new Council(Sets.newSet(faction));
     }
 }
