@@ -2,10 +2,10 @@ package it.eparlato.kata.rpg;
 
 import java.util.Set;
 
-public class Council {
+public class AttackRules {
     private final Set<Faction> factions;
 
-    public Council(Set<Faction> factions) {
+    public AttackRules(Set<Faction> factions) {
         this.factions = factions;
     }
 

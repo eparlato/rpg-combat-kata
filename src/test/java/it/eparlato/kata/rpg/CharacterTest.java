@@ -18,7 +18,7 @@ public class CharacterTest {
     private static final int DAMAGE_EXCEEDING_HEALTH = MAX_HEALTH + 1;
     private Character character;
 
-    private Council council = mock(Council.class);
+    private AttackRules attackRules = mock(AttackRules.class);
 
     @Before
     public void setUp() {
@@ -138,14 +138,14 @@ public class CharacterTest {
     }
 
     private void attack(Character attacker, Character target, int damageDealt) {
-        Action attack = new Attack(attacker, target, damageDealt, new Council(Collections.emptySet()));
+        Action attack = new Attack(attacker, target, damageDealt, new AttackRules(Collections.emptySet()));
         attack.execute();
     }
 
     private void heal(Character patient, int healingQuantity) {
-        when(council.areAllies(patient, patient)).thenReturn(false);
+        when(attackRules.areAllies(patient, patient)).thenReturn(false);
 
-        Action healing = new Healing(patient, patient, healingQuantity, council);
+        Action healing = new Healing(patient, patient, healingQuantity, attackRules);
         healing.execute();
     }
 

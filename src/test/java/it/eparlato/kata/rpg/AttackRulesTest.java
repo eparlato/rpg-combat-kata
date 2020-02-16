@@ -8,8 +8,8 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class CouncilTest {
-    Council council;
+public class AttackRulesTest {
+    AttackRules attackRules;
 
     Faction faction = mock(Faction.class);
 
@@ -19,12 +19,12 @@ public class CouncilTest {
         Character fellowAlly = new Character();
         createFactionTwoAlliedFellows(fellow, fellowAlly);
 
-        assertThat(council.areAllies(fellow, fellowAlly), is(true));
+        assertThat(attackRules.areAllies(fellow, fellowAlly), is(true));
     }
 
     private void createFactionTwoAlliedFellows(Character fellow, Character fellowAlly) {
         when(faction.areAllies(fellow, fellowAlly)).thenReturn(true);
 
-        council = new Council(Sets.newSet(faction));
+        attackRules = new AttackRules(Sets.newSet(faction));
     }
 }

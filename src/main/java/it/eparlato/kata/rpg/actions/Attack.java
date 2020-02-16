@@ -1,7 +1,7 @@
 package it.eparlato.kata.rpg.actions;
 
 import it.eparlato.kata.rpg.Character;
-import it.eparlato.kata.rpg.Council;
+import it.eparlato.kata.rpg.AttackRules;
 
 import static it.eparlato.kata.rpg.Character.DAMAGE_AMPLIFICATION_THRESHOLD;
 import static it.eparlato.kata.rpg.Character.DAMAGE_REDUCTION_THRESHOLD;
@@ -10,13 +10,13 @@ public class Attack implements Action {
     private final Character attacker;
     private final Character target;
     private final int damageEffort;
-    private final Council council;
+    private final AttackRules attackRules;
 
-    public Attack(Character attacker, Character target, int damageEffort, Council council) {
+    public Attack(Character attacker, Character target, int damageEffort, AttackRules attackRules) {
         this.attacker = attacker;
         this.target = target;
         this.damageEffort = damageEffort;
-        this.council = council;
+        this.attackRules = attackRules;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Attack implements Action {
     }
 
     private int computeDealtDamage(Character attacker, Character target, int damageEffort) {
-        if (council.areAllies(attacker, target)) {
+        if (attackRules.areAllies(attacker, target)) {
             return 0;
         }
 
