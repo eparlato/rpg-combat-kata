@@ -87,7 +87,7 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
 ## TODO
 
-* Tests on damage computation should be moved to AttackTest class. Or maybe there should be a new collaborator for Attack that computes damage.
+* Attack and AttackThing are duplicated, there should be only one Attack action between a Character and a Target
 
 ## Lessons learned
 
