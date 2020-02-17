@@ -16,5 +16,17 @@ public class Tree implements Thing {
     @Override
     public void receiveDamage(int damageDealt) {
         this.health -= damageDealt;
+
+        if (this.health < 0) {
+            this.health = 0;
+        }
+    }
+
+    @Override
+    public Status status() {
+        if (health == 0)
+            return Status.DESTROYED;
+
+        return Status.INTACT;
     }
 }

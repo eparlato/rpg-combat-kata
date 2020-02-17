@@ -4,4 +4,6 @@ public interface Thing {
     int health();
 
     void receiveDamage(int damageDealt);
+
+    Status status();
 }

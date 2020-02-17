@@ -11,7 +11,7 @@ public class ThingTest {
     private Thing tree;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         tree = new Tree();
     }
 
@@ -27,5 +27,26 @@ public class ThingTest {
         tree.receiveDamage(damageDealt);
 
         assertThat(tree.health(), is(Tree.MAX_TREE_HEALTH - damageDealt));
+    }
+
+    @Test
+    public void has_health_zero_when_damage_exceeds_current_health() {
+        tree.receiveDamage(Tree.MAX_TREE_HEALTH + 1);
+
+        assertThat(tree.health(), is(0));
+    }
+
+    @Test
+    public void is_destroyed_when_health_is_zero() {
+        tree.receiveDamage(Tree.MAX_TREE_HEALTH);
+
+        assertThat(tree.status(), is(Status.DESTROYED));
+    }
+
+    @Test
+    public void is_intact_when_health_is_above_zero() {
+        tree.receiveDamage(Tree.MAX_TREE_HEALTH - 1);
+
+        assertThat(tree.status(), is(Status.INTACT));
     }
 }
