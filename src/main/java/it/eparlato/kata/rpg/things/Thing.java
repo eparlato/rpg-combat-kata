@@ -1,9 +1,24 @@
 package it.eparlato.kata.rpg.things;
 
-public interface Thing {
-    int health();
+public abstract class Thing {
+    protected int health;
 
-    void receiveDamage(int damageDealt);
+    public int health() {
+        return health;
+    }
 
-    Status status();
+    public void receiveDamage(int damageDealt) {
+        this.health -= damageDealt;
+
+        if (this.health < 0) {
+            this.health = 0;
+        }
+    }
+
+    public Status status() {
+        if (health == 0)
+            return Status.DESTROYED;
+
+        return Status.INTACT;
+    }
 }
