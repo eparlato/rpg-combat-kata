@@ -87,11 +87,13 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
 ## TODO
 
-* refactor FactionTests and HealingTests, shoukld their private methods handle both Character and Thing entities?
+* refactor FactionTests and HealingTests, should their private methods handle both Character and Thing entities?
 * move logic from Attack to AttackRules
 * AttackRules is not a proper name, if it's used both from attack and healing actions
 
-## Lessons learned
+## What have I learned?
 
 * always remove duplication, from everywhere. If I have to change something, I want to change it in ONE place.
   * Ex. in CharacterTest, if the "attack" action is equal in every test, put it in a private method attack(). 
+  * I tried an implementation of Command pattern first, then I was forced to tried a different pattern. I then studied and tried to implement the Visitor pattern
+  
