@@ -2,6 +2,8 @@ package it.eparlato.kata.rpg.actions;
 
 import it.eparlato.kata.rpg.Character;
 import it.eparlato.kata.rpg.AttackRules;
+import it.eparlato.kata.rpg.things.Thing;
+import it.eparlato.kata.rpg.things.Tree;
 import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +47,15 @@ public class HealingTest {
         healTargetWithHealingQuantityOf(5, attackRules);
 
         assertThat(target.health(), Is.is(Character.MAX_HEALTH - damageEffort));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannot_be_executed_on_a_thing() {
+        Thing tree = new Tree();
+
+        Healing healing = new Healing(DOES_NOT_CARE_WHO_HE_IS, 15, attackRules);
+
+        healing.on(tree);
     }
 
     private void attackTargetWithDamageEffortOf(int damageEffort, AttackRules attackRules) {

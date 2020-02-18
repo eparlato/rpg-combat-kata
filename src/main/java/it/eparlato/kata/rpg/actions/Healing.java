@@ -24,7 +24,7 @@ public class Healing implements Action {
 
     @Override
     public void on(Thing target) {
-
+        throw new IllegalArgumentException("You can't heal a thing");
     }
 
     private boolean isCharacterHealingHimself(Character patient) {
