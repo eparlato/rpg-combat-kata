@@ -1,8 +1,6 @@
 package it.eparlato.kata.rpg;
 
-import it.eparlato.kata.rpg.actions.Action;
-import it.eparlato.kata.rpg.actions.Attack;
-import it.eparlato.kata.rpg.actions.Healing;
+import it.eparlato.kata.rpg.actions.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -138,15 +136,15 @@ public class CharacterTest {
     }
 
     private void attack(Character attacker, Character target, int damageDealt) {
-        Action attack = new Attack(attacker, target, damageDealt, new AttackRules(Collections.emptySet()));
-        attack.execute();
+        Action attack = new Attack(attacker, damageDealt, new AttackRules(Collections.emptySet()));
+        attack.on(target);
     }
 
     private void heal(Character patient, int healingQuantity) {
         when(attackRules.areAllies(patient, patient)).thenReturn(false);
 
-        Action healing = new Healing(patient, patient, healingQuantity, attackRules);
-        healing.execute();
+        Action healing = new Healing(patient, healingQuantity, attackRules);
+        healing.on(patient);
     }
 
     private int attackerLevel;

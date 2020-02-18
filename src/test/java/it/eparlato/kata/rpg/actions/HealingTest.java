@@ -48,12 +48,12 @@ public class HealingTest {
     }
 
     private void attackTargetWithDamageEffortOf(int damageEffort, AttackRules attackRules) {
-        Attack attack = new Attack(DOES_NOT_CARE_WHO_HE_IS, target, damageEffort, attackRules);
-        attack.execute();
+        Attack attack = new Attack(DOES_NOT_CARE_WHO_HE_IS, damageEffort, attackRules);
+        attack.on(target);
     }
 
     private void healTargetWithHealingQuantityOf(int healingQuantity, AttackRules attackRules) {
-        Healing healing = new Healing(DOES_NOT_CARE_WHO_HE_IS, target, healingQuantity, attackRules);
-        healing.execute();
+        Healing healing = new Healing(DOES_NOT_CARE_WHO_HE_IS, healingQuantity, attackRules);
+        healing.on(target);
     }
 }

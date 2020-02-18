@@ -1,8 +1,6 @@
 package it.eparlato.kata.rpg;
 
-import it.eparlato.kata.rpg.actions.Action;
-import it.eparlato.kata.rpg.actions.Accept;
-import it.eparlato.kata.rpg.actions.ThrowOut;
+import it.eparlato.kata.rpg.actions.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,12 +51,14 @@ public class FactionTest {
     }
 
     private void join(Faction faction, Character character) {
-        Action throwOut = new Accept(faction, character);
-        throwOut.execute();
+        Action accept = new Accept(faction);
+        accept.on(character);
     }
 
     private void leave(Faction faction) {
-        Action throwOut = new ThrowOut(faction, character);
-        throwOut.execute();
+        //_Action throwOut = new _ThrowOut(faction, character);
+        //throwOut.execute();
+        Action throwOut = new ThrowOut(faction);
+        throwOut.on(character);
     }
 }

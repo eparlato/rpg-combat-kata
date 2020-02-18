@@ -1,29 +1,34 @@
 package it.eparlato.kata.rpg.actions;
 
-import it.eparlato.kata.rpg.Character;
 import it.eparlato.kata.rpg.AttackRules;
+import it.eparlato.kata.rpg.Character;
+import it.eparlato.kata.rpg.things.Thing;
 
 import static it.eparlato.kata.rpg.Character.DAMAGE_AMPLIFICATION_THRESHOLD;
 import static it.eparlato.kata.rpg.Character.DAMAGE_REDUCTION_THRESHOLD;
 
 public class Attack implements Action {
+
     private final Character attacker;
-    private final Character target;
     private final int damageEffort;
     private final AttackRules attackRules;
 
-    public Attack(Character attacker, Character target, int damageEffort, AttackRules attackRules) {
+    public Attack(Character attacker, int damageEffort, AttackRules attackRules) {
         this.attacker = attacker;
-        this.target = target;
         this.damageEffort = damageEffort;
         this.attackRules = attackRules;
     }
 
     @Override
-    public void execute() {
+    public void on(Character target) {
         int damageDealt = computeDealtDamage(attacker, target, damageEffort);
 
         target.receiveDamage(damageDealt);
+    }
+
+    @Override
+    public void on(Thing target) {
+        target.receiveDamage(damageEffort);
     }
 
     private int computeDealtDamage(Character attacker, Character target, int damageEffort) {
