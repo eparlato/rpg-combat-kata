@@ -87,7 +87,9 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
 ## TODO
 
-* Attack and AttackThing are duplicated, there should be only one Attack action between a Character and a Target
+* refactor FactionTests and HealingTests, shoukld their private methods handle both Character and Thing entities?
+* move logic from Attack to AttackRules
+* AttackRules is not a proper name, if it's used both from attack and healing actions
 
 ## Lessons learned
 

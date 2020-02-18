@@ -18,6 +18,6 @@ public class Accept implements Action {
 
     @Override
     public void on(Thing target) {
-
+        throw new IllegalArgumentException("A faction can't accept a thing");
     }
 }

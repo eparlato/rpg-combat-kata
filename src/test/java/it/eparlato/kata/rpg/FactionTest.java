@@ -1,6 +1,8 @@
 package it.eparlato.kata.rpg;
 
 import it.eparlato.kata.rpg.actions.*;
+import it.eparlato.kata.rpg.things.Thing;
+import it.eparlato.kata.rpg.things.Tree;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,6 +48,14 @@ public class FactionTest {
         assertThat(sysOps.areAllies(character, alliedFellow), is(true));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void does_not_allow_a_thing() {
+        Thing tree = new Tree();
+
+        Action accept = new Accept(developers);
+        accept.on(tree);
+    }
+
     private void join(Faction faction) {
         join(faction, character);
     }
@@ -56,8 +66,6 @@ public class FactionTest {
     }
 
     private void leave(Faction faction) {
-        //_Action throwOut = new _ThrowOut(faction, character);
-        //throwOut.execute();
         Action throwOut = new ThrowOut(faction);
         throwOut.on(character);
     }
