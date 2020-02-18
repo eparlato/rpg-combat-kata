@@ -95,6 +95,7 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
 * always remove duplication, from everywhere. If I have to change something, I want to change it in ONE place.
   * Ex. in CharacterTest, if the "attack" action is equal in every test, put it in a private method attack(). 
-* I tried an implementation of Command pattern first, then I was forced to tried a different pattern. I then studied and tried to implement the Visitor pattern
+* I tried an implementation of Command pattern first, then I was forced to tried a different pattern. 
+When trying to implement the Visitor pattern, I found out that was simpler just to "duplicate" the same `on` method on every Action command
 
   
